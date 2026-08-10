@@ -1,5 +1,12 @@
 #pragma once
 
+/**
+ * @file
+ * @ingroup sentinel_return
+ *
+ * @brief Return helpers that wrap the failed value into `std::unexpected`.
+ */
+
 #include <expected>
 
 #include "sentinel/return/detail.hpp"

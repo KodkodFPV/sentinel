@@ -1,5 +1,12 @@
 #pragma once
 
+/**
+ * @file
+ * @ingroup sentinel_return
+ *
+ * @brief Aggregates all sentinel guard-style return helpers.
+ */
+
 #include "sentinel/return/void.hpp"
 #include "sentinel/return/false.hpp"
 #include "sentinel/return/nullopt.hpp"

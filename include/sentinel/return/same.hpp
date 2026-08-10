@@ -1,5 +1,12 @@
 #pragma once
 
+/**
+ * @file
+ * @ingroup sentinel_return
+ *
+ * @brief Return helpers that return the failed value itself.
+ */
+
 #include "sentinel/return/detail.hpp"
 
 

@@ -1,5 +1,12 @@
 #pragma once
 
+/**
+ * @file
+ * @ingroup sentinel_return
+ *
+ * @brief Return helpers for `void` functions.
+ */
+
 #include "sentinel/return/detail.hpp"
 
 

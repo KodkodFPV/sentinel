@@ -26,6 +26,20 @@ set(SENTINEL_PLATFORM stderr CACHE STRING "" FORCE)
 
 Supported backends are provided by `sentinel-platform`.
 
+## Documentation
+
+The Doxygen documentation target is optional:
+
+```cmake
+set(SENTINEL_BUILD_DOCS ON CACHE BOOL "" FORCE)
+```
+
+Build the generated HTML documentation with:
+
+```bash
+cmake --build <build-dir> --target sentinel.docs
+```
+
 ## Error Traits
 
 Platform-specific status types can opt in by specializing `sentinel::error_traits<T>`:

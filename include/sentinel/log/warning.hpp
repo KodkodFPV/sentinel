@@ -1,5 +1,15 @@
 #pragma once
 
+/**
+ * @file
+ * @ingroup sentinel_log
+ *
+ * @brief Warning-level logging macros.
+ *
+ * Provides plain warning logs, formatted warning logs, explicit failure logging, and conditional
+ * failure logging.
+ */
+
 #include "platform.hpp"
 
 #include "sentinel/config.hpp"

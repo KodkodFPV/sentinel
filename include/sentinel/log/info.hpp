@@ -1,5 +1,15 @@
 #pragma once
 
+/**
+ * @file
+ * @ingroup sentinel_log
+ *
+ * @brief Info-level logging macros.
+ *
+ * Provides plain info logs, formatted info logs, explicit failure logging, and conditional
+ * failure logging.
+ */
+
 #include "platform.hpp"
 
 #include "sentinel/config.hpp"

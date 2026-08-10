@@ -1,5 +1,12 @@
 #pragma once
 
+/**
+ * @file
+ * @ingroup sentinel_return
+ *
+ * @brief Return helpers that return `std::nullopt` on failure.
+ */
+
 #include <optional>
 
 #include "sentinel/return/detail.hpp"

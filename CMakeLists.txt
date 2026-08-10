@@ -15,6 +15,7 @@ target_include_directories(sentinel
 
 set(SENTINEL_PLATFORM "none" CACHE STRING "Sentinel platform backend")
 option(SENTINEL_BUILD_TESTS "Build the test suite" OFF)
+option(SENTINEL_BUILD_DOCS "Build the Doxygen documentation" OFF)
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/platform/CMakeLists.txt")
   add_subdirectory(platform)
@@ -44,4 +45,26 @@ target_link_libraries(sentinel
 if(SENTINEL_BUILD_TESTS)
   enable_testing()
   add_subdirectory(tests)
+endif()
+
+if(SENTINEL_BUILD_DOCS)
+  find_package(Doxygen REQUIRED)
+
+  set(SENTINEL_DOXYGEN_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/docs")
+
+  configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile"
+    @ONLY
+  )
+
+  add_custom_target(sentinel.docs
+    COMMAND
+      ${DOXYGEN_EXECUTABLE} "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile"
+    WORKING_DIRECTORY
+      "${CMAKE_CURRENT_SOURCE_DIR}"
+    COMMENT
+      "Generating sentinel Doxygen documentation"
+    VERBATIM
+  )
 endif()
