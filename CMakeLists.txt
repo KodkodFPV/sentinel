@@ -14,22 +14,21 @@ target_include_directories(sentinel
 )
 
 set(SENTINEL_PLATFORM "none" CACHE STRING "Sentinel platform backend")
+set(SENTINEL_PLATFORM_GIT_REPOSITORY "https://github.com/KodkodFPV/sentinel-platform.git" CACHE STRING "Sentinel platform git repository")
+set(SENTINEL_PLATFORM_GIT_TAG "main" CACHE STRING "Sentinel platform git tag")
+
 option(SENTINEL_BUILD_TESTS "Build the test suite" OFF)
 option(SENTINEL_BUILD_DOCS "Build the Doxygen documentation" OFF)
 
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/platform/CMakeLists.txt")
-  add_subdirectory(platform)
-else()
-  message(STATUS "sentinel-platform is missing, fetching it into ${CMAKE_CURRENT_SOURCE_DIR}/platform")
+message(STATUS "Resolving sentinel-platform with FetchContent")
 
-  FetchContent_Declare(sentinel_platform
-    GIT_REPOSITORY "https://github.com/KodkodFPV/sentinel-platform.git"
-    GIT_TAG        main
-    SOURCE_DIR     "${CMAKE_CURRENT_SOURCE_DIR}/platform"
-  )
+FetchContent_Declare(sentinel_platform
+  GIT_REPOSITORY "${SENTINEL_PLATFORM_GIT_REPOSITORY}"
+  GIT_TAG        "${SENTINEL_PLATFORM_GIT_TAG}"
+  SOURCE_DIR     "${CMAKE_CURRENT_SOURCE_DIR}/platform"
+)
 
-  FetchContent_MakeAvailable(sentinel_platform)
-endif()
+FetchContent_MakeAvailable(sentinel_platform)
 
 set(sentinel_platform_target "sentinel::platform_${SENTINEL_PLATFORM}")
 

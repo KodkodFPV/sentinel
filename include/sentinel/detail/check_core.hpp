@@ -115,7 +115,7 @@ namespace sentinel::detail
    *
    * @return `true` when the enum underlying value is non-zero; otherwise `false`.
    */
-  template <class T> requires std::is_enum_v<T> && !ErrorTraits<T>
+  template <class T> requires std::is_enum_v<T> && (!ErrorTraits<T>)
     inline bool failed(T value)
     {
       return static_cast<std::underlying_type_t<T>>(value) != 0;
@@ -147,7 +147,7 @@ namespace sentinel::detail
    *
    * @tparam T Integral type without `sentinel::error_traits<T>`.
    */
-  template <class T> requires std::is_integral_v<T> && !std::same_as<std::remove_cvref_t<T>, bool> && !ErrorTraits<T>
+  template <class T> requires std::is_integral_v<T> && (!std::same_as<std::remove_cvref_t<T>, bool>) && (!ErrorTraits<T>)
     inline bool failed(T) = delete;
 
   /**
