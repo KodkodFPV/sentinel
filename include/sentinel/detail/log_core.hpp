@@ -8,7 +8,7 @@
  * @brief Internal formatting helpers for failure logging.
  */
 
-#include <cstdint>
+#include <cinttypes>
 #include <memory>
 #include <type_traits>
 #include <utility>
@@ -40,6 +40,11 @@
 
 namespace sentinel::detail
 {
+  inline constexpr std::uint32_t error_value_hex(std::int32_t value)
+  {
+    return static_cast<std::uint32_t>(value);
+  }
+
   /**
    * @ingroup sentinel_detail
    * @internal
@@ -251,11 +256,11 @@ namespace sentinel::detail
                            T            err)
     {
       std::forward<LogF>(log)(tag,
-                              "%s(%d): call %s error 0x%.4X [%s]",
+                              "%s(%d): call %s error 0x%04" PRIX32 " [%s]",
                               function,
                               line,
                               call,
-                              static_cast<std::int32_t>(err),
+                              error_value_hex(static_cast<std::int32_t>(err)),
                               strerr(err));
     }
 
@@ -286,11 +291,11 @@ namespace sentinel::detail
                            T            err)
     {
       std::forward<LogF>(log)(tag,
-                              "%s(%d): call %s error 0x%.4X [%s]",
+                              "%s(%d): call %s error 0x%04" PRIX32 " [%s]",
                               function,
                               line,
                               call,
-                              sentinel::error_traits<std::remove_cvref_t<T>>::value(err),
+                              error_value_hex(sentinel::error_traits<std::remove_cvref_t<T>>::value(err)),
                               sentinel::error_traits<std::remove_cvref_t<T>>::message(err));
     }
 
@@ -320,12 +325,12 @@ namespace sentinel::detail
                            const std::error_code& err)
     {
       std::forward<LogF>(log)(tag,
-                              "%s(%d): call %s error %s:0x%.4X [%s]",
+                              "%s(%d): call %s error %s:0x%04" PRIX32 " [%s]",
                               function,
                               line,
                               call,
                               err.category().name(),
-                              static_cast<std::int32_t>(err.value()),
+                              error_value_hex(static_cast<std::int32_t>(err.value())),
                               err.message().c_str());
     }
 

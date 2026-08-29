@@ -20,6 +20,12 @@ set(SENTINEL_PLATFORM_GIT_TAG "main" CACHE STRING "Sentinel platform git tag")
 option(SENTINEL_BUILD_TESTS "Build the test suite" OFF)
 option(SENTINEL_BUILD_DOCS "Build the Doxygen documentation" OFF)
 
+configure_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmake/version.hpp.in"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/sentinel/version.hpp"
+  @ONLY
+)
+
 message(STATUS "Resolving sentinel-platform with FetchContent")
 
 FetchContent_Declare(sentinel_platform

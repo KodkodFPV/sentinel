@@ -35,6 +35,18 @@ namespace
     return 7;
   }
 
+  const char* trackedFormat(int& calls)
+  {
+    ++calls;
+    return "value %d";
+  }
+
+  int trackedValue(int& calls)
+  {
+    ++calls;
+    return 42;
+  }
+
   void returnVoid(bool fail, int& calls)
   {
     RETURN_VOID_WITH_ERROR("test", trackedBool(!fail, calls));
@@ -96,6 +108,59 @@ namespace
     RETURN_UNEXPECTED_FROM_UNEXPECTED_WITH_INFO("test", trackedExpected(fail, calls));
 
     return 7;
+  }
+
+  bool returnFalseFormatted(bool fail, int& callCalls, int& formatCalls, int& argumentCalls)
+  {
+    RETURN_FALSE_WITH_ERROR_FMT("test", trackedBool(!fail, callCalls), trackedFormat(formatCalls), trackedValue(argumentCalls));
+
+    return true;
+  }
+
+  std::optional<int> returnNulloptFormatted(bool fail, int& callCalls, int& formatCalls, int& argumentCalls)
+  {
+    RETURN_NULLOPT_WITH_WARNING_FMT("test", trackedBool(!fail, callCalls), trackedFormat(formatCalls), trackedValue(argumentCalls));
+
+    return 7;
+  }
+
+  std::error_code returnSameFormatted(bool fail, int& callCalls, int& formatCalls, int& argumentCalls)
+  {
+    RETURN_SAME_WITH_INFO_FMT("test", trackedError(fail, callCalls), trackedFormat(formatCalls), trackedValue(argumentCalls));
+
+    return {};
+  }
+
+  std::expected<int, std::error_code> returnSameUnexpectedFormatted(bool fail, int& callCalls, int& formatCalls, int& argumentCalls)
+  {
+    RETURN_SAME_UNEXPECTED_WITH_ERROR_FMT("test", trackedError(fail, callCalls), trackedFormat(formatCalls), trackedValue(argumentCalls));
+
+    return 7;
+  }
+
+  std::error_code returnErrorFromUnexpectedFormatted(bool fail, int& callCalls, int& formatCalls, int& argumentCalls)
+  {
+    RETURN_ERR_FROM_UNEXPECTED_WITH_WARNING_FMT("test", trackedExpected(fail, callCalls), trackedFormat(formatCalls), trackedValue(argumentCalls));
+
+    return {};
+  }
+
+  std::expected<int, std::error_code> returnUnexpectedFromUnexpectedFormatted(bool fail, int& callCalls, int& formatCalls, int& argumentCalls)
+  {
+    RETURN_UNEXPECTED_FROM_UNEXPECTED_WITH_INFO_FMT("test", trackedExpected(fail, callCalls), trackedFormat(formatCalls), trackedValue(argumentCalls));
+
+    return 7;
+  }
+
+  void checkFormattedEvaluationCounts(bool fail, int formatCalls, int argumentCalls)
+  {
+#if CHECKS_SILENT
+    REQUIRE(formatCalls == 6);
+    REQUIRE(argumentCalls == 0);
+#else
+    REQUIRE(formatCalls == (fail ? 6 : 0));
+    REQUIRE(argumentCalls == (fail ? 6 : 0));
+#endif
   }
 }
 
@@ -205,4 +270,45 @@ TEST_CASE("sentinel formatted and ISR return macros compile", "[return]")
     };
 
   REQUIRE(test());
+}
+
+TEST_CASE("sentinel formatted return macros continue on success and evaluate messages by mode", "[return]")
+{
+  int callCalls{};
+  int formatCalls{};
+  int argumentCalls{};
+
+  REQUIRE(returnFalseFormatted(false, callCalls, formatCalls, argumentCalls));
+  REQUIRE(returnNulloptFormatted(false, callCalls, formatCalls, argumentCalls) == std::optional<int>{7});
+  REQUIRE_FALSE(returnSameFormatted(false, callCalls, formatCalls, argumentCalls));
+  REQUIRE(returnSameUnexpectedFormatted(false, callCalls, formatCalls, argumentCalls).value() == 7);
+  REQUIRE_FALSE(returnErrorFromUnexpectedFormatted(false, callCalls, formatCalls, argumentCalls));
+  REQUIRE(returnUnexpectedFromUnexpectedFormatted(false, callCalls, formatCalls, argumentCalls).value() == 7);
+
+  REQUIRE(callCalls == 6);
+  checkFormattedEvaluationCounts(false, formatCalls, argumentCalls);
+}
+
+TEST_CASE("sentinel formatted return macros return requested value on failure and evaluate messages by mode", "[return]")
+{
+  int callCalls{};
+  int formatCalls{};
+  int argumentCalls{};
+
+  REQUIRE_FALSE(returnFalseFormatted(true, callCalls, formatCalls, argumentCalls));
+  REQUIRE_FALSE(returnNulloptFormatted(true, callCalls, formatCalls, argumentCalls).has_value());
+  REQUIRE(returnSameFormatted(true, callCalls, formatCalls, argumentCalls) == std::make_error_code(std::errc::invalid_argument));
+
+  auto sameUnexpected = returnSameUnexpectedFormatted(true, callCalls, formatCalls, argumentCalls);
+  REQUIRE_FALSE(sameUnexpected.has_value());
+  REQUIRE(sameUnexpected.error() == std::make_error_code(std::errc::invalid_argument));
+
+  REQUIRE(returnErrorFromUnexpectedFormatted(true, callCalls, formatCalls, argumentCalls) == std::make_error_code(std::errc::io_error));
+
+  auto unexpectedFromUnexpected = returnUnexpectedFromUnexpectedFormatted(true, callCalls, formatCalls, argumentCalls);
+  REQUIRE_FALSE(unexpectedFromUnexpected.has_value());
+  REQUIRE(unexpectedFromUnexpected.error() == std::make_error_code(std::errc::io_error));
+
+  REQUIRE(callCalls == 6);
+  checkFormattedEvaluationCounts(true, formatCalls, argumentCalls);
 }

@@ -10,3 +10,6 @@
 #include "sentinel/log/info.hpp"
 #include "sentinel/log/warning.hpp"
 #include "sentinel/log/error.hpp"
+#include "sentinel/log/debug.hpp"
+#include "sentinel/log/verbose.hpp"
+#include "sentinel/log/hexdump.hpp"

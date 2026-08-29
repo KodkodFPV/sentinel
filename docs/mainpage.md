@@ -11,7 +11,7 @@ logging sink.
 
 @section sentinel_main_modules Modules
 
-- @ref sentinel_log "Logging": direct logging and failure logging.
+- @ref sentinel_log "Logging": direct logging, failure logging, and hexdumps.
 - @ref sentinel_return "Return Helpers": guard-style return helpers for common function return types.
 - @ref sentinel_traits "Error Traits": opt-in support for platform-specific status types.
 - @ref sentinel_config "Configuration": compile-time configuration through tweaks.
@@ -47,7 +47,7 @@ The `sentinel.docs` target runs Doxygen and writes HTML documentation into the C
 @defgroup sentinel_log Logging
 @ingroup sentinel_public
 
-@brief Direct log macros and failure log macros.
+@brief Direct log macros, failure log macros, and hexdump macros.
 
 @defgroup sentinel_return Return Helpers
 @ingroup sentinel_public

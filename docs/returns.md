@@ -5,7 +5,7 @@
 Return helpers execute `call`, evaluate the result with `sentinel::detail::failed`, log the
 failure, and return from the current function. They are intended for guard-style error handling.
 
-Each return family is available for error, warning, and info severities. Each severity also has
+Each return family is available for info, warning, and error severities. Each severity also has
 plain, ISR, formatted, and formatted ISR variants.
 
 ## Common Parameters
@@ -37,7 +37,7 @@ the internal `sentinel::detail::failed` and `sentinel::detail::log_failed` overl
 | `RETURN_ERR_FROM_UNEXPECTED_WITH_*` | `tag`, `call` | `return result_check.error();` |
 | `RETURN_UNEXPECTED_FROM_UNEXPECTED_WITH_*` | `tag`, `call` | `return std::unexpected(result_check.error());` |
 
-`*` is one of `ERROR`, `WARNING`, or `INFO`.
+`*` is one of `INFO`, `WARNING`, or `ERROR`.
 
 ## Variants
 

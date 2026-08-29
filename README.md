@@ -1,9 +1,9 @@
 # sentinel
 
 `sentinel` is a lightweight cross-platform C++ diagnostics layer for embedded and native targets.
-It provides guard-style checks, error/warning/info logging, and early-return helpers for
-`std::error_code`, `std::expected`, booleans, enums, pointers, and platform-specific status types
-through explicit error traits and pluggable backends.
+It provides guard-style checks, info/warning/error/debug/verbose logging, hexdumps, and
+early-return helpers for `std::error_code`, `std::expected`, booleans, enums, pointers, and
+platform-specific status types through explicit error traits and pluggable backends.
 
 Platform backends live in the `platform` submodule:
 
