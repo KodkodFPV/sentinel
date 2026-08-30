@@ -1,11 +1,11 @@
-#include <catch2/catch_test_macros.hpp>
-
 #include <cstdint>
-#include <expected>
 #include <memory>
-#include <optional>
-#include <system_error>
 #include <type_traits>
+#include <optional>
+#include <expected>
+#include <system_error>
+
+#include <catch2/catch_test_macros.hpp>
 
 #include "sentinel/detail/check_core.hpp"
 

@@ -22,6 +22,7 @@
 #include "sentinel/detail/log_core.hpp"
 #include "sentinel/detail/check_core.hpp"
 
+
 /**
  * @def SENTINEL_RETURN_IMPL_VOID(tag, call, log_function)
  * @ingroup sentinel_detail

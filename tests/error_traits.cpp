@@ -1,13 +1,13 @@
-#include <catch2/catch_test_macros.hpp>
-
 #include <cinttypes>
-#include <cstdio>
-#include <expected>
-#include <optional>
-#include <string>
-#include <system_error>
 #include <utility>
+#include <optional>
+#include <expected>
+#include <system_error>
+#include <cstdio>
+#include <string>
 #include <vector>
+
+#include <catch2/catch_test_macros.hpp>
 
 #include "sentinel/detail/check_core.hpp"
 #include "sentinel/detail/log_core.hpp"

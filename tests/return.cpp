@@ -1,8 +1,8 @@
-#include <catch2/catch_test_macros.hpp>
-
-#include <expected>
 #include <optional>
+#include <expected>
 #include <system_error>
+
+#include <catch2/catch_test_macros.hpp>
 
 #include "sentinel/return.hpp"
 

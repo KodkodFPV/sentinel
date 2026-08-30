@@ -8,8 +8,8 @@
  */
 
 #include <cstdint>
-#include <concepts>
 #include <type_traits>
+#include <concepts>
 
 
 namespace sentinel

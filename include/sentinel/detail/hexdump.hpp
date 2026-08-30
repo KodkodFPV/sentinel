@@ -8,8 +8,8 @@
  * @brief Internal hexdump formatting helpers.
  */
 
-#include <cstddef>
 #include <cstdint>
+#include <cstddef>
 
 
 namespace sentinel::detail

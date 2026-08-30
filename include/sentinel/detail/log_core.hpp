@@ -13,9 +13,9 @@
 #include <type_traits>
 #include <utility>
 #include <concepts>
-#include <system_error>
 #include <optional>
 #include <expected>
+#include <system_error>
 
 #include "sentinel/detail/check_core.hpp"
 #include "sentinel/error_traits.hpp"

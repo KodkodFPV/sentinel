@@ -9,11 +9,11 @@
  */
 
 #include <memory>
-#include <concepts>
 #include <type_traits>
-#include <system_error>
+#include <concepts>
 #include <optional>
 #include <expected>
+#include <system_error>
 
 #include "sentinel/error_traits.hpp"
 
