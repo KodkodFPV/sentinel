@@ -7,7 +7,7 @@
  * @brief Return helpers that extract and return `.error()` from failed expected-like results.
  */
 
-#include "sentinel/return/detail.hpp"
+#include <sentinel/return/detail.hpp>
 
 
 #define RETURN_ERR_FROM_UNEXPECTED_WITH_INFO(tag, call)                         SENTINEL_RETURN_IMPL_ERROR_FROM_UNEXPECTED(tag, call, sentinel::platform::log_info)

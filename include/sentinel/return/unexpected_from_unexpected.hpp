@@ -9,7 +9,7 @@
 
 #include <expected>
 
-#include "sentinel/return/detail.hpp"
+#include <sentinel/return/detail.hpp>
 
 
 #define RETURN_UNEXPECTED_FROM_UNEXPECTED_WITH_INFO(tag, call)                         SENTINEL_RETURN_IMPL_UNEXPECTED_FROM_UNEXPECTED(tag, call, sentinel::platform::log_info)

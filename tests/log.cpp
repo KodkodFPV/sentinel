@@ -6,7 +6,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "sentinel/log.hpp"
+#include <sentinel/log.hpp>
 
 
 namespace

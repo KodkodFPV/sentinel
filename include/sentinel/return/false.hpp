@@ -7,7 +7,7 @@
  * @brief Return helpers that return `false` on failure.
  */
 
-#include "sentinel/return/detail.hpp"
+#include <sentinel/return/detail.hpp>
 
 
 #define RETURN_FALSE_WITH_INFO(tag, call)                         SENTINEL_RETURN_IMPL_VALUE(tag, call, sentinel::platform::log_info, false)

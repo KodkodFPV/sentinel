@@ -7,7 +7,7 @@
  * @brief Return helpers that return a caller-provided fallback value on failure.
  */
 
-#include "sentinel/return/detail.hpp"
+#include <sentinel/return/detail.hpp>
 
 
 #define RETURN_OTHER_WITH_INFO(tag, call, ret_err)                         SENTINEL_RETURN_IMPL_VALUE(tag, call, sentinel::platform::log_info, ret_err)

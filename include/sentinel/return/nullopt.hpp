@@ -9,7 +9,7 @@
 
 #include <optional>
 
-#include "sentinel/return/detail.hpp"
+#include <sentinel/return/detail.hpp>
 
 
 #define RETURN_NULLOPT_WITH_INFO(tag, call)                         SENTINEL_RETURN_IMPL_VALUE(tag, call, sentinel::platform::log_info, std::nullopt)

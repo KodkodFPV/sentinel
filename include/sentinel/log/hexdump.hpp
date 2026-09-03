@@ -11,9 +11,9 @@
 
 #include "platform.hpp"
 
-#include "sentinel/config.hpp"
-#include "sentinel/detail/log_core.hpp"
-#include "sentinel/detail/hexdump.hpp"
+#include <sentinel/config.hpp>
+#include <sentinel/detail/log_core.hpp>
+#include <sentinel/detail/hexdump.hpp>
 
 
 #if CHECKS_SILENT

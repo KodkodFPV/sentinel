@@ -15,7 +15,7 @@
 #include <expected>
 #include <system_error>
 
-#include "sentinel/error_traits.hpp"
+#include <sentinel/error_traits.hpp>
 
 
 namespace sentinel::detail

@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include "sentinel/error_traits.hpp"
+#include <sentinel/error_traits.hpp>
 
 
 namespace sentinel::test

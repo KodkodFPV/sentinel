@@ -11,10 +11,10 @@
 
 #include "platform.hpp"
 
-#include "sentinel/config.hpp"
+#include <sentinel/config.hpp>
 
-#include "sentinel/detail/log_core.hpp"
-#include "sentinel/detail/source_location.hpp"
+#include <sentinel/detail/log_core.hpp>
+#include <sentinel/detail/source_location.hpp>
 
 
 #if CHECKS_SILENT

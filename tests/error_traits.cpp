@@ -9,8 +9,8 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "sentinel/detail/check_core.hpp"
-#include "sentinel/detail/log_core.hpp"
+#include <sentinel/detail/check_core.hpp>
+#include <sentinel/detail/log_core.hpp>
 
 #include "support/types.hpp"
 

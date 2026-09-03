@@ -17,8 +17,8 @@
 #include <expected>
 #include <system_error>
 
-#include "sentinel/detail/check_core.hpp"
-#include "sentinel/error_traits.hpp"
+#include <sentinel/detail/check_core.hpp>
+#include <sentinel/error_traits.hpp>
 
 
 /**

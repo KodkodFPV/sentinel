@@ -7,7 +7,7 @@
  * @brief Return helpers that return the failed value itself.
  */
 
-#include "sentinel/return/detail.hpp"
+#include <sentinel/return/detail.hpp>
 
 
 #define RETURN_SAME_WITH_INFO(tag, call)                         SENTINEL_RETURN_IMPL_SAME(tag, call, sentinel::platform::log_info)
