@@ -53,8 +53,8 @@ TEST_CASE("sentinel error_traits controls log value and message", "[error_traits
 
   REQUIRE(log.messages.size() == 1);
   REQUIRE(log.tags[0] == "test");
-  REQUIRE(log.formats[0] == "%s(%d): call %s error 0x%04" PRIX32 " [%s]");
-  REQUIRE(log.messages[0] == "function(123): call call() error 0x0007 [trait failure]");
+  REQUIRE(log.formats[0] == "%s(%d): call %s error [%s (0x%08" PRIX32 ")]");
+  REQUIRE(log.messages[0] == "function(123): call call() error [trait failure (0x00000007)]");
 }
 
 TEST_CASE("plain enum errors are still supported through ADL strerr", "[error_traits]")
@@ -64,8 +64,8 @@ TEST_CASE("plain enum errors are still supported through ADL strerr", "[error_tr
   sentinel::detail::log_failed(log, "test", "function", 123, "call()", sentinel::test::PlainError::Failure);
 
   REQUIRE(log.messages.size() == 1);
-  REQUIRE(log.formats[0] == "%s(%d): call %s error 0x%04" PRIX32 " [%s]");
-  REQUIRE(log.messages[0] == "function(123): call call() error 0x002A [failure]");
+  REQUIRE(log.formats[0] == "%s(%d): call %s error [%s (0x%08" PRIX32 ")]");
+  REQUIRE(log.messages[0] == "function(123): call call() error [failure (0x0000002A)]");
 }
 
 TEST_CASE("sentinel log_failed formats check-like values", "[error_traits]")
@@ -101,17 +101,17 @@ TEST_CASE("sentinel log_failed formats std error containers", "[error_traits]")
 
   REQUIRE(log.messages.size() == 3);
 
-  char errPrefix[TestLogLineBufferSize]{};
-  char expectedPrefix[TestLogLineBufferSize]{};
-  char unexpectedPrefix[TestLogLineBufferSize]{};
+  char errMessage[TestLogLineBufferSize]{};
+  char expectedMessage[TestLogLineBufferSize]{};
+  char unexpectedMessage[TestLogLineBufferSize]{};
 
-  std::snprintf(errPrefix, sizeof(errPrefix), "function(20): call err error %s:0x%04" PRIX32 " [", err.category().name(), static_cast<std::uint32_t>(err.value()));
-  std::snprintf(expectedPrefix, sizeof(expectedPrefix), "function(21): call expected error %s:0x%04" PRIX32 " [", err.category().name(), static_cast<std::uint32_t>(err.value()));
-  std::snprintf(unexpectedPrefix, sizeof(unexpectedPrefix), "function(22): call unexpected error %s:0x%04" PRIX32 " [", err.category().name(), static_cast<std::uint32_t>(err.value()));
+  std::snprintf(errMessage, sizeof(errMessage), "function(20): call err error [%s (0x%08" PRIX32 ")]", err.message().c_str(), static_cast<std::uint32_t>(err.value()));
+  std::snprintf(expectedMessage, sizeof(expectedMessage), "function(21): call expected error [%s (0x%08" PRIX32 ")]", err.message().c_str(), static_cast<std::uint32_t>(err.value()));
+  std::snprintf(unexpectedMessage, sizeof(unexpectedMessage), "function(22): call unexpected error [%s (0x%08" PRIX32 ")]", err.message().c_str(), static_cast<std::uint32_t>(err.value()));
 
-  REQUIRE(log.messages[0].find(errPrefix) == 0);
-  REQUIRE(log.messages[1].find(expectedPrefix) == 0);
-  REQUIRE(log.messages[2].find(unexpectedPrefix) == 0);
+  REQUIRE(log.messages[0] == errMessage);
+  REQUIRE(log.messages[1] == expectedMessage);
+  REQUIRE(log.messages[2] == unexpectedMessage);
 }
 
 TEST_CASE("sentinel log_failed_fmt appends additional message after failure details", "[error_traits]")
@@ -121,6 +121,6 @@ TEST_CASE("sentinel log_failed_fmt appends additional message after failure deta
   sentinel::detail::log_failed_fmt(log, "test", "function", 30, "call()", sentinel::test::TraitError{7}, "value %d", 42);
 
   REQUIRE(log.messages.size() == 2);
-  REQUIRE(log.messages[0] == "function(30): call call() error 0x0007 [trait failure]");
+  REQUIRE(log.messages[0] == "function(30): call call() error [trait failure (0x00000007)]");
   REQUIRE(log.messages[1] == "value 42");
 }

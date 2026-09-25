@@ -256,12 +256,12 @@ namespace sentinel::detail
                            T            err)
     {
       std::forward<LogF>(log)(tag,
-                              "%s(%d): call %s error 0x%04" PRIX32 " [%s]",
+                              "%s(%d): call %s error [%s (0x%08" PRIX32 ")]",
                               function,
                               line,
                               call,
-                              error_value_hex(static_cast<std::int32_t>(err)),
-                              strerr(err));
+                              strerr(err),
+                              error_value_hex(static_cast<std::int32_t>(err)));
     }
 
   /**
@@ -291,12 +291,12 @@ namespace sentinel::detail
                            T            err)
     {
       std::forward<LogF>(log)(tag,
-                              "%s(%d): call %s error 0x%04" PRIX32 " [%s]",
+                              "%s(%d): call %s error [%s (0x%08" PRIX32 ")]",
                               function,
                               line,
                               call,
-                              error_value_hex(sentinel::error_traits<std::remove_cvref_t<T>>::value(err)),
-                              sentinel::error_traits<std::remove_cvref_t<T>>::message(err));
+                              sentinel::error_traits<std::remove_cvref_t<T>>::message(err),
+                              error_value_hex(sentinel::error_traits<std::remove_cvref_t<T>>::value(err)));
     }
 
   /**
@@ -325,13 +325,12 @@ namespace sentinel::detail
                            const std::error_code& err)
     {
       std::forward<LogF>(log)(tag,
-                              "%s(%d): call %s error %s:0x%04" PRIX32 " [%s]",
+                              "%s(%d): call %s error [%s (0x%08" PRIX32 ")]",
                               function,
                               line,
                               call,
-                              err.category().name(),
-                              error_value_hex(static_cast<std::int32_t>(err.value())),
-                              err.message().c_str());
+                              err.message().c_str(),
+                              error_value_hex(static_cast<std::int32_t>(err.value())));
     }
 
   /**
